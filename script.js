@@ -102,7 +102,8 @@ class Game {
   initializePipes() {
     this.pipes = [{
       x: this.canvas.width,
-      y: this.getRandomPipeY()
+      y: this.getRandomPipeY(),
+      spawned: false
     }];
   }
   
@@ -143,10 +144,12 @@ class Game {
       pipe.x -= CONFIG.PIPE_SPEED;
       
       // Spawn new pipe when current pipe reaches spawn position
-      if (pipe.x === CONFIG.PIPE_SPAWN_X) {
+      if (pipe.x <= CONFIG.PIPE_SPAWN_X && !pipe.spawned) {
+        pipe.spawned = true;
         this.pipes.push({
           x: this.canvas.width,
-          y: this.getRandomPipeY()
+          y: this.getRandomPipeY(),
+          spawned: false
         });
       }
       
